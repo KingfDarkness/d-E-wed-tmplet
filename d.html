@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>D-Shop — Multi‑page Template (Single File)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#ff3d00;--muted:#6b7280;--bg:#f8fafc;--card:#ffffff}
+    *{box-sizing:border-box}body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;background:var(--bg);color:#0f172a}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px}
+
+    /* Header */
+    header{background:linear-gradient(90deg,#fff 0%, #fff 60%, rgba(255,61,0,0.04) 100%);box-shadow:0 1px 0 rgba(15,23,42,0.04)}
+    .header{display:flex;gap:16px;align-items:center;padding:12px 0}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:700}
+    .badge{width:44px;height:44px;border-radius:10px;background:var(--accent);color:white;display:inline-grid;place-items:center;font-size:20px}
+    .nav{display:flex;gap:12px;align-items:center}
+    .nav a{padding:8px 10px;border-radius:8px}
+    .nav a.active{background:rgba(255,61,0,0.09);color:var(--accent);font-weight:600}
+
+    /* search */
+    .searchbar{flex:1;display:flex;align-items:center;gap:8px}
+    .searchbar input{flex:1;padding:10px 12px;border-radius:8px;border:1px solid #e6e9ef;background:white}
+    .search-btn{padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:white;cursor:pointer}
+
+    /* layout */
+    main{padding:18px 0}
+    .hero{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.04)}
+    .banner{height:220px;border-radius:8px;background:linear-gradient(135deg,#ffd6cc,#fff);display:flex;align-items:center;justify-content:center;font-weight:700}
+
+    /* categories */
+    .cats{display:flex;gap:10px;overflow:auto;padding:8px 0}
+    .cat{min-width:120px;background:white;padding:12px;border-radius:8px;text-align:center;box-shadow:0 6px 18px rgba(15,23,42,0.03);cursor:pointer}
+
+    /* products grid */
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .product-card{display:flex;flex-direction:column}
+    .product-card img{width:100%;height:200px;object-fit:cover;border-radius:8px}
+    .meta{padding:8px 0}
+    .price{color:var(--accent);font-weight:700;margin-top:8px}
+    .old{color:var(--muted);text-decoration:line-through;margin-left:8px;font-weight:600}
+
+    /* product detail */
+    .detail{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .thumbs{display:flex;gap:8px;margin-top:8px}
+    .thumbs img{width:64px;height:64px;object-fit:cover;border-radius:6px;cursor:pointer}
+
+    /* cart */
+    .cart-list{display:flex;flex-direction:column;gap:10px}
+    .cart-item{display:flex;gap:10px;align-items:center}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+
+    /* contact */
+    form input, form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef;margin-top:8px}
+    form button{margin-top:10px;padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:white}
+
+    footer{padding:24px 0;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.detail{grid-template-columns:1fr}} 
+    @media (max-width:600px){.header{padding:8px 0}.grid{grid-template-columns:1fr}.logo span{display:none}.searchbar input{padding:10px}.hero{gap:10px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header">
+        <div class="logo">
+          <div class="badge">D</div>
+          <div>
+            <div style="font-size:16px">D-Shop</div>
+            <div style="font-size:12px;color:var(--muted)">নিজের অনলাইন মার্কেট</div>
+          </div>
+        </div>
+
+        <div class="searchbar">
+          <input id="q" placeholder="প্রোডাক্ট, ব্র্যান্ড, ক্যাটাগরি খুঁজুন..." />
+          <button class="search-btn" onclick="searchProducts()">Search</button>
+        </div>
+
+        <nav class="nav" id="mainNav">
+          <a href="#/" data-route="/">Home</a>
+          <a href="#/products" data-route="/products">Products</a>
+          <a href="#/cart" data-route="/cart">Cart (<span id="cartCount">0</span>)</a>
+          <a href="#/contact" data-route="/contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="app">
+    <!-- Content injected by JS -->
+  </main>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap">
+      <div>
+        <strong>D-Shop</strong>
+        <div style="max-width:360px;color:var(--muted);margin-top:8px">ইমেইল: support@dshop.example | ফোন: +8801XXXXXXXXX</div>
+      </div>
+      <div style="color:var(--muted)">© D-Shop 2025. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Single-file SPA with hash routing
+    const PRODUCTS = [
+      {id:1,title:'Smartphone X Pro',slug:'smartphone-x-pro',price:45990,old:59990,category:'Electronics',query:'smartphone'},
+      {id:2,title:'Running Shoes',slug:'running-shoes',price:2199,old:3500,category:'Fashion',query:'running shoes'},
+      {id:3,title:'Wireless Headset',slug:'wireless-headset',price:1299,old:1999,category:'Electronics',query:'wireless headset'},
+      {id:4,title:'Microwave Oven',slug:'microwave-oven',price:6850,old:8200,category:'Home',query:'microwave oven'},
+      {id:5,title:'Kids Toy Set',slug:'kids-toy-set',price:499,old:799,category:'Toys',query:'kids toys'},
+      {id:6,title:"Men's Shirt",slug:'mens-shirt',price:699,old:1299,category:'Fashion',query:'men shirt'},
+      {id:7,title:'LED TV 43"',slug:'led-tv-43',price:27500,old:34900,category:'Electronics',query:'tv 43 inch'},
+      {id:8,title:'Backpack',slug:'backpack',price:850,old:1200,category:'Fashion',query:'backpack'}
+    ];
+
+    // Cart persisted in localStorage
+    const CART_KEY = 'dshop_cart_v1';
+    function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY))||[];}catch(e){return []}}
+    function saveCart(c){localStorage.setItem(CART_KEY,JSON.stringify(c));updateCartCount()}
+    function addToCart(productId, qty=1){const p=PRODUCTS.find(x=>x.id===productId);if(!p)return;let c=getCart();const ex=c.find(i=>i.id===productId);if(ex){ex.qty+=qty}else c.push({id:productId,qty});saveCart(c);alert('Cart updated');}
+    function removeFromCart(productId){let c=getCart();c=c.filter(i=>i.id!==productId);saveCart(c);renderCart();}
+    function updateQty(productId,qty){let c=getCart();const it=c.find(i=>i.id===productId);if(it){it.qty=qty; if(it.qty<=0) c=c.filter(x=>x.id!==productId);}saveCart(c);renderCart();}
+    function updateCartCount(){document.getElementById('cartCount').innerText = getCart().reduce((s,i)=>s+i.qty,0)}
+
+    // Utility: Unsplash image by query (no API key) — uses source.unsplash.com
+    function unsplash(query, w=800, h=600, seed){
+      // add seed to reduce repeated same images
+      const q = encodeURIComponent(query+(seed?(' '+seed):''));
+      return `https://source.unsplash.com/${w}x${h}/?${q}`;
+    }
+
+    // Router
+    function route(){
+      const hash = location.hash || '#/';
+      const path = hash.slice(1);
+      const main = document.getElementById('app');
+      // update active nav
+      Array.from(document.querySelectorAll('#mainNav a')).forEach(a=>a.classList.toggle('active', a.getAttribute('href')===hash));
+
+      if(path === '/' || path === '') renderHome(main);
+      else if(path.startsWith('/products')) renderProductsPage(main);
+      else if(path.startsWith('/product/')){
+        const id = parseInt(path.split('/product/')[1]); renderProductDetail(main,id);
+      }
+      else if(path.startsWith('/cart')) renderCart(main);
+      else if(path.startsWith('/contact')) renderContact(main);
+      else renderNotFound(main);
+    }
+
+    // Pages
+    function renderHome(root){root.innerHTML = `
+      <section class="hero">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <h2 style="margin:0">আজকের ডিল</h2>
+            <small style="color:var(--muted)">সকল দেখুন</small>
+          </div>
+          <div class="banner">বড় ডিসকাউন্ট — সীমিত সময়</div>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <div style="flex:1;background:#fff;padding:10px;border-radius:8px;border:1px dashed #eee;text-align:center">ফ্ল্যাশ সেল</div>
+            <div style="width:120px;background:#fff;padding:10px;border-radius:8px;border:1px dashed #eee;text-align:center">কুপন</div>
+          </div>
+
+          <h3 style="margin-top:16px">নতুন প্রোডাক্টস</h3>
+          <div id="homeGrid" class="grid"></div>
+        </div>
+
+        <aside class="card">
+          <h3 style="margin-top:0">বেস্ট সেলারস</h3>
+          <ul style="padding-left:16px;color:var(--muted)">
+            <li>স্মার্টফোন</li>
+            <li>ফ্যাশন</li>
+            <li>ইলেকট্রনিক্স</li>
+            <li>বাচ্চাদের জিনিস</li>
+          </ul>
+        </aside>
+      </section>
+    `;
+
+      // render few products
+      const grid = document.getElementById('homeGrid'); grid.innerHTML='';
+      PRODUCTS.slice(0,4).forEach(p => grid.appendChild(productCardEl(p)));
+    }
+
+    function productCardEl(p){
+      const el = document.createElement('div'); el.className='card product-card';
+      el.innerHTML = `
+        <a href="#/product/${p.id}" style="display:block">
+          <img loading="lazy" src="${unsplash(p.query,600,400,p.id)}" alt="${p.title}" />
+        </a>
+        <div class="meta">
+          <div style="font-weight:600">${p.title}</div>
+          <div style="font-size:13px;color:var(--muted)">${p.category}</div>
+          <div class="price">৳${p.price.toLocaleString()}<span class="old">৳${p.old.toLocaleString()}</span></div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button onclick="location.hash='#/product/${p.id}'" style="flex:1;padding:8px;border-radius:8px;border:1px solid #eee;background:white">বিস্তারিত</button>
+          <button onclick="addToCart(${p.id},1)" style="padding:8px;border-radius:8px;border:none;background:var(--accent);color:white">Add</button>
+        </div>
+      `;
+      return el;
+    }
+
+    function renderProductsPage(root){
+      const q = new URLSearchParams(location.hash.split('?')[1] || '');
+      const search = q.get('q') || '';
+      root.innerHTML = `
+        <section>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h2>Products</h2>
+            <div style="color:var(--muted)">Found <span id="foundCount">${PRODUCTS.length}</span></div>
+          </div>
+          <div style="margin-top:12px" class="cats">
+            <div class="cat" onclick="filterByCat('All')">All</div>
+            <div class="cat" onclick="filterByCat('Electronics')">Electronics</div>
+            <div class="cat" onclick="filterByCat('Fashion')">Fashion</div>
+            <div class="cat" onclick="filterByCat('Home')">Home</div>
+            <div class="cat" onclick="filterByCat('Toys')">Toys</div>
+          </div>
+          <div id="productsGrid" class="grid" style="margin-top:12px"></div>
+        </section>
+      `;
+      renderProductsGrid(search);
+    }
+
+    function renderProductsGrid(search){
+      const grid = document.getElementById('productsGrid'); grid.innerHTML='';
+      const list = PRODUCTS.filter(p => !search || p.title.toLowerCase().includes(search.toLowerCase()) || p.category.toLowerCase().includes(search.toLowerCase()));
+      document.getElementById('foundCount').innerText = list.length;
+      list.forEach(p => grid.appendChild(productCardEl(p)));
+    }
+
+    function filterByCat(cat){
+      if(cat==='All') renderProductsGrid(''); else renderProductsGrid(cat);
+    }
+
+    function renderProductDetail(root,id){
+      const p = PRODUCTS.find(x=>x.id===id); if(!p){renderNotFound(root);return}
+      root.innerHTML = `
+        <section class="card detail">
+          <div>
+            <img id="mainImg" src="${unsplash(p.query,1000,600,p.id)}" alt="${p.title}" style="width:100%;border-radius:8px" />
+            <div class="thumbs" id="thumbs"></div>
+          </div>
+          <aside>
+            <h2 style="margin:0">${p.title}</h2>
+            <div style="color:var(--muted);margin-top:6px">Category: ${p.category}</div>
+            <div class="price">৳${p.price.toLocaleString()} <span class="old">৳${p.old.toLocaleString()}</span></div>
+            <p style="color:var(--muted);margin-top:12px">বিস্তারিত: এটি একটি উদাহরণ পণ্য। বাস্তবে এখানে পণ্যের পুরো বর্ণনা, স্পেসিফিকেশন, রিভিউ ইত্যাদি দেখানো হবে।</p>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <input id="qtyInput" type="number" value="1" min="1" style="width:80px;padding:8px;border-radius:8px;border:1px solid #e6e9ef" />
+              <button onclick="addToCart(${p.id}, parseInt(document.getElementById('qtyInput').value||1))" style="padding:10px;border-radius:8px;border:none;background:var(--accent);color:white">Add to Cart</button>
+            </div>
+            <hr style="margin:16px 0" />
+            <div style="color:var(--muted)">Seller: D-Shop Official</div>
+          </aside>
+        </section>
+      `;
+
+      // thumbs
+      const thumbs = document.getElementById('thumbs');
+      thumbs.innerHTML = '';
+      for(let i=1;i<=4;i++){
+        const img = document.createElement('img');
+        img.src = unsplash(p.query,200,160,p.id+'-'+i);
+        img.alt = p.title + ' ' + i;
+        img.onclick = ()=>{document.getElementById('mainImg').src = unsplash(p.query,1000,600,p.id+'-'+i)};
+        thumbs.appendChild(img);
+      }
+    }
+
+    function renderCart(root){
+      root.innerHTML = `
+        <section>
+          <h2>Cart</h2>
+          <div id="cartArea"></div>
+        </section>
+      `;
+      renderCart();
+    }
+
+    function renderCart(){
+      const cartArea = document.getElementById('cartArea') || document.getElementById('app');
+      const items = getCart();
+      if(!cartArea) return;
+      if(items.length===0){cartArea.innerHTML = '<div class="card">Your cart is empty.</div>'; updateCartCount(); return}
+      const wrap = document.createElement('div'); wrap.className='card';
+      const list = document.createElement('div'); list.className='cart-list';
+      let total = 0;
+      items.forEach(it=>{
+        const p = PRODUCTS.find(x=>x.id===it.id); if(!p) return;
+        const item = document.createElement('div'); item.className='cart-item';
+        item.innerHTML = `
+          <img src="${unsplash(p.query,200,200,p.id)}" alt="${p.title}" />
+          <div style="flex:1">
+            <div style="font-weight:600">${p.title}</div>
+            <div style="color:var(--muted)">৳${p.price.toLocaleString()} x ${it.qty} = ৳${(p.price*it.qty).toLocaleString()}</div>
+            <div style="margin-top:6px;display:flex;gap:8px;align-items:center">
+              <button onclick="updateQty(${p.id}, ${it.qty-1})">-</button>
+              <div style="min-width:30px;text-align:center">${it.qty}</div>
+              <button onclick="updateQty(${p.id}, ${it.qty+1})">+</button>
+              <button onclick="removeFromCart(${p.id})" style="margin-left:12px;color:red;background:none;border:none;cursor:pointer">Remove</button>
+            </div>
+          </div>
+        `;
+        list.appendChild(item);
+        total += p.price*it.qty;
+      });
+      const footer = document.createElement('div'); footer.style.marginTop='12px'; footer.innerHTML = `<div style="font-weight:700">Total: ৳${total.toLocaleString()}</div><div style="margin-top:8px"><button onclick="checkout()" style="padding:10px;border-radius:8px;border:none;background:var(--accent);color:white">Checkout</button></div>`;
+      wrap.appendChild(list); wrap.appendChild(footer);
+      cartArea.innerHTML=''; cartArea.appendChild(wrap); updateCartCount();
+    }
+
+    function checkout(){
+      alert('Checkout demo — এই টেমপ্লেটটি পেমেন্ট ইন্টেগ্রেশন ছাড়া।');
+    }
+
+    function renderContact(root){
+      root.innerHTML = `
+        <section>
+          <h2>Contact Us</h2>
+          <div class="card">
+            <form id="contactForm" onsubmit="submitContact(event)">
+              <label>নাম</label>
+              <input id="name" required />
+              <label>ইমেইল</label>
+              <input id="email" type="email" required />
+              <label>বার্তা</label>
+              <textarea id="message" rows="6" required></textarea>
+              <button type="submit">Send Message</button>
+            </form>
+          </div>
+        </section>
+      `;
+    }
+
+    function submitContact(e){
+      e.preventDefault();
+      const data = {name:document.getElementById('name').value,email:document.getElementById('email').value,message:document.getElementById('message').value};
+      // since no backend, we'll just log and show success
+      console.log('Contact message:', data);
+      alert('ধন্যবাদ! আপনার বার্তা পাঠানো হয়েছে। (ডেমো)');
+      document.getElementById('contactForm').reset();
+    }
+
+    function renderNotFound(root){root.innerHTML = '<div class="card"><h3>404 — Not Found</h3></div>'}
+
+    // search from header
+    function searchProducts(){
+      const q=document.getElementById('q').value.trim(); if(!q) return alert('অনুগ্রহ করে সার্চ টার্ম লিখুন।');
+      location.hash = '#/products?q='+encodeURIComponent(q);
+    }
+
+    // init
+    window.addEventListener('hashchange', route);
+    window.addEventListener('load', ()=>{route(); updateCartCount();});
+
+    // expose some functions for inline onclick
+    window.addToCart = addToCart; window.removeFromCart = removeFromCart; window.updateQty = updateQty; window.checkout = checkout; window.filterByCat = filterByCat; window.renderCart = renderCart; window.searchProducts = searchProducts;
+  </script>
+</body>
+</html>
